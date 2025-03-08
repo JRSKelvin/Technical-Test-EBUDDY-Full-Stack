@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { Request, Response, NextFunction } from "express";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, QueryOrderByConstraint, updateDoc, where } from "firebase/firestore";
 import jwt from "jsonwebtoken";
 import db from "../config/firebaseConfig";
 import { AuthRequest } from "../middleware/authMiddleware";
@@ -87,7 +87,16 @@ class ApiController {
   }
   async usersGetAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const fetchedData = await getDocs(collection(db, "users"));
+      /* This Is Optional Code For Question Number 4 Regarding Multi Order By With Priority Not Order By Multiple Times */
+      const orderFields: string[] | undefined = Array.isArray(req.query.orderBy) ? req.query.orderBy as string[] : (req.query.orderBy ? [req.query.orderBy as string] : undefined);
+      const orderDirections: string[] | undefined = Array.isArray(req.query.orderDir) ? req.query.orderDir as string[] : (req.query.orderDir ? [req.query.orderDir as string] : undefined);
+      const finalOrder: QueryOrderByConstraint[] = [];
+      if (orderFields) {
+        orderFields.forEach((field, index) => {
+          finalOrder.push(orderBy(field, orderDirections?.[index] === "asc" ? "asc" : "desc"));
+        });
+      }
+      const fetchedData = await getDocs(query(collection(db, "users"), ...finalOrder));
       const mappedData = fetchedData.docs.map((data) => {
         const { password, ...restData }: User = { id: data.id, ...data.data() };
         return restData;
