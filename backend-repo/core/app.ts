@@ -1,9 +1,13 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { Application } from "express";
-import route from "../routes";
 
-dotenv.config();
+const result = dotenv.config();
+if (result.error) {
+  console.log(`Error Loading Environment File`, result.error);
+}
+
+import route from "../routes";
 
 const app: Application = express();
 

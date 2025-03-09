@@ -14,7 +14,10 @@ import * as logger from "firebase-functions/logger";
 import dotenv from "dotenv";
 import * as functions from "firebase-functions";
 
-dotenv.config();
+const result = dotenv.config();
+if (result.error) {
+  console.log(`Error Loading Environment File`, result.error);
+}
 
 import app from "../../core/app";
 

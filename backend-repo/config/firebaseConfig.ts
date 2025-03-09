@@ -3,7 +3,10 @@ import { initializeApp } from "firebase/app";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
-dotenv.config();
+const result = dotenv.config();
+if (result.error) {
+  console.log(`Error Loading Environment File`, result.error);
+}
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
