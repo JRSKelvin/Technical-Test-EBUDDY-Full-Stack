@@ -36,7 +36,14 @@ class ApiController {
       const userCredential = await signInWithEmailAndPassword(auth, req.body.email, req.body.password);
       const restData = userCredential.user;
       const token = await restData.getIdToken();
-      res.status(200).json({ success: true, data: { token, ...restData }, message: "User sign in successfully." });
+      const returnData = {
+        uid: restData.uid,
+        email: restData.email,
+        displayName: restData.displayName,
+        phoneNumber: restData.phoneNumber,
+        photoURL: restData.photoURL,
+      };
+      res.status(200).json({ success: true, data: { token, ...returnData }, message: "User sign in successfully." });
     } catch (error: any) {
       res.status(500).json({ success: false, data: undefined, message: error.message });
     }
@@ -75,7 +82,14 @@ class ApiController {
       const userCredential = await createUserWithEmailAndPassword(auth, req.body.email, req.body.password);
       const restData = userCredential.user;
       const token = await restData.getIdToken();
-      res.status(200).json({ success: true, data: { token, ...restData }, message: "User sign up successfully." });
+      const returnData = {
+        uid: restData.uid,
+        email: restData.email,
+        displayName: restData.displayName,
+        phoneNumber: restData.phoneNumber,
+        photoURL: restData.photoURL,
+      };
+      res.status(200).json({ success: true, data: { token, ...returnData }, message: "User sign up successfully." });
     } catch (error: any) {
       res.status(500).json({ success: false, data: undefined, message: error.message });
     }

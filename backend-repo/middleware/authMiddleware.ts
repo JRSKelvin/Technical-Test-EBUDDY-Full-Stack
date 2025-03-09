@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { initializeApp, applicationDefault } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 /*
 import jwt from "jsonwebtoken";
@@ -9,6 +10,10 @@ const secretKey = process.env.JWT_SECRET || "your_secret_key";
 export interface AuthRequest extends Request {
   user?: any;
 }
+
+initializeApp({
+  credential: applicationDefault(),
+});
 
 const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
   const token = req.header("Authorization")?.split(" ")[1];
