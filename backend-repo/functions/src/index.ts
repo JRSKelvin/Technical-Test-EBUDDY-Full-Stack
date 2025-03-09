@@ -11,7 +11,11 @@
 import {onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 */
+import dotenv from "dotenv";
 import * as functions from "firebase-functions";
+
+dotenv.config();
+
 import app from "../../core/app";
 
 // Start writing functions
