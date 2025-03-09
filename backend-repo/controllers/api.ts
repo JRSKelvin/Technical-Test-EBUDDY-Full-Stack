@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import { Request, Response, NextFunction } from "express";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, QueryOrderByConstraint, updateDoc, where } from "firebase/firestore";
 import jwt from "jsonwebtoken";
-import db from "../config/firebaseConfig";
+import { auth, db } from "../config/firebaseConfig";
 import { AuthRequest } from "../middleware/authMiddleware";
 import User from "../models/user";
 

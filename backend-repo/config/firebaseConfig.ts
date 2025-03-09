@@ -24,4 +24,4 @@ if (process.env.NODE_ENV === "development") {
   connectFirestoreEmulator(db, "localhost", 8080);
 }
 
-export default db;
+export { auth, db };
