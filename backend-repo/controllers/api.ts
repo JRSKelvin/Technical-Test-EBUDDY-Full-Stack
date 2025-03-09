@@ -1,16 +1,22 @@
 import bcrypt from "bcryptjs";
 import { Request, Response, NextFunction } from "express";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, QueryOrderByConstraint, updateDoc, where } from "firebase/firestore";
+/*
 import jwt from "jsonwebtoken";
+*/
 import { auth, db } from "../config/firebaseConfig";
 import { AuthRequest } from "../middleware/authMiddleware";
 import User from "../models/user";
 
+/*
 const secretKey = process.env.JWT_SECRET || "your_secret_key";
+*/
 
 class ApiController {
   async authSignIn(req: Request, res: Response, next: NextFunction) {
     try {
+      /* Disable Manual Firebase FireStore Data Authentication And Using Firebase Authentication
       const refQuery = query(collection(db, "users"), where("email", "==", req.body.email));
       const existingData = await getDocs(refQuery);
       if (existingData.empty) {
@@ -25,6 +31,11 @@ class ApiController {
       }
       const { password, ...restData }: User = { id: fetchedData.id, ...fetchedData.data() };
       const token = jwt.sign({ ...restData }, secretKey, { expiresIn: "1d" });
+      */
+      /* Using Firebase Authentication */
+      const userCredential = await signInWithEmailAndPassword(auth, req.body.email, req.body.password);
+      const restData = userCredential.user;
+      const token = await restData.getIdToken();
       res.status(200).json({ success: true, data: { token, ...restData }, message: "User sign in successfully." });
     } catch (error: any) {
       res.status(500).json({ success: false, data: undefined, message: error.message });
@@ -35,8 +46,10 @@ class ApiController {
       const refQuery = query(collection(db, "users"), where("email", "==", req.body.email));
       const existingData = await getDocs(refQuery);
       if (!existingData.empty) {
+        /* Keep Save Sign Up Data To Firebase FireStore And Also Using Firebase Authentication As Authenticator
         res.status(500).json({ success: false, data: undefined, message: "Email already in use." });
         return;
+        */
       }
       const newData: User = {
         email: String(req.body.email),
@@ -54,8 +67,14 @@ class ApiController {
         res.status(500).json({ success: false, data: undefined, message: "Failed to retrieve created user." });
         return;
       }
+      /* Disable Data And Token Generation
       const { password, ...restData }: User = { id: createdData.id, ...createdData.data() };
       const token = jwt.sign({ ...restData }, secretKey, { expiresIn: "1d" });
+      */
+      /* Using Firebase Authentication */
+      const userCredential = await createUserWithEmailAndPassword(auth, req.body.email, req.body.password);
+      const restData = userCredential.user;
+      const token = await restData.getIdToken();
       res.status(200).json({ success: true, data: { token, ...restData }, message: "User sign up successfully." });
     } catch (error: any) {
       res.status(500).json({ success: false, data: undefined, message: error.message });

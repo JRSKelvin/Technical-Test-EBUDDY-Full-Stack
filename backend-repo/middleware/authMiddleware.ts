@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import { getAuth } from "firebase-admin/auth";
+/*
 import jwt from "jsonwebtoken";
 
 const secretKey = process.env.JWT_SECRET || "your_secret_key";
+*/
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -14,7 +17,10 @@ const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => 
     return;
   }
   try {
+    /* Migrate To Using Firebase Authentication
     const decoded = jwt.verify(token, secretKey);
+    */
+    const decoded = getAuth().verifyIdToken(token);
     req.user = decoded;
     next();
   } catch (error) {
