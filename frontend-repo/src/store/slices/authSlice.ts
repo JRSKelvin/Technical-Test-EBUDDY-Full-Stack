@@ -24,6 +24,11 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    signOut: (state) => {
+      state.loading = false;
+      state.error = undefined;
+      state.data = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,4 +89,5 @@ export const signInUser = createAsyncThunk("auth/signIn", async ({ email, passwo
   }
 });
 
+export const { signOut } = authSlice.actions;
 export default authSlice.reducer;

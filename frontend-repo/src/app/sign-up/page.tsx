@@ -3,16 +3,24 @@
 import React from "react";
 import { Box, Button, FormControl, FormGroup, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import AuthContainerComponent from "@/components/AuthContainer";
 import CardComponent from "@/components/Card";
+import { AppDispatch } from "@/store";
+import { signUpUser } from "@/store/slices/authSlice";
 
 const Page = () => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [fullName, setFullName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const handleSubmitSignUp = async () => {
+    const result = await dispatch(signUpUser({ email, password, fullName, phoneNumber }));
+    if (result.meta.requestStatus === "fulfilled") {
+      router.push("/");
+    }
   };
   return (
     <div>

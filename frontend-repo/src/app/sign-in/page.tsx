@@ -3,14 +3,22 @@
 import React from "react";
 import { Box, Button, FormControl, FormGroup, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import AuthContainerComponent from "@/components/AuthContainer";
 import CardComponent from "@/components/Card";
+import { AppDispatch } from "@/store";
+import { signInUser } from "@/store/slices/authSlice";
 
 const Page = () => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const handleSubmitSignIn = async () => {
+    const result = await dispatch(signInUser({ email, password }));
+    if (result.meta.requestStatus === "fulfilled") {
+      router.push("/");
+    }
   };
   return (
     <div>
