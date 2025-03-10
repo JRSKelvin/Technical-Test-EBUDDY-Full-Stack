@@ -68,6 +68,7 @@ const authSlice = createSlice({
 export const signUpUser = createAsyncThunk("auth/signUp", async ({ email, password, fullName, phoneNumber }: authType, thunkAPI) => {
   try {
     const response = await axiosInstance.post(`/api/auth/sign-up`, { email, password, fullName, phoneNumber });
+    localStorage.setItem("token", response?.data?.data?.token);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
@@ -80,6 +81,7 @@ export const signUpUser = createAsyncThunk("auth/signUp", async ({ email, passwo
 export const signInUser = createAsyncThunk("auth/signIn", async ({ email, password }: authType, thunkAPI) => {
   try {
     const response = await axiosInstance.post(`/api/auth/sign-in`, { email, password });
+    localStorage.setItem("token", response?.data?.data?.token);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {

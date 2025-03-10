@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, useAppSelector } from "@/store";
 import { signOut } from "@/store/slices/authSlice";
+import { getUser } from "@/store/slices/userSlice";
 
 interface User {
   id: string;
@@ -19,6 +20,7 @@ const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const auth = useAppSelector((state: RootState) => state.auth);
+  const user = useAppSelector((state) => state.user);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
   const [data, setData] = React.useState<User[]>([]);
@@ -32,7 +34,13 @@ const Page = () => {
       { id: "3", email: "email3@gmail.com", password: "email3", fullName: "Email3", phoneNumber: "345678912" },
       { id: "4", email: "email4@gmail.com", password: "email4", fullName: "Email4", phoneNumber: "456789123" },
     ]);
+    dispatch(getUser());
   }, []);
+  React.useEffect(() => {
+    if (user?.data?.data) {
+      setData(user?.data?.data);
+    }
+  }, [user?.data]);
   const handleChangeRowsPerPage = (newRowsPerPage: number) => {
     setRowsPerPage(newRowsPerPage);
     setPage(0);
