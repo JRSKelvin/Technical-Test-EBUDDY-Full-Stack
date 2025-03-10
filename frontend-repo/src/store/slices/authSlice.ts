@@ -34,7 +34,7 @@ const authSlice = createSlice({
     builder
       .addCase(signInUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = undefined;
         state.data = action.payload;
       })
       .addCase(signInUser.rejected, (state, action) => {
@@ -49,7 +49,7 @@ const authSlice = createSlice({
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = undefined;
         state.data = action.payload;
       })
       .addCase(signUpUser.rejected, (state, action) => {

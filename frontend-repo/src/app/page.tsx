@@ -2,7 +2,7 @@
 
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, useAppSelector } from "@/store";
 import { signOut } from "@/store/slices/authSlice";
