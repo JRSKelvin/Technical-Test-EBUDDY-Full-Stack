@@ -40,7 +40,7 @@ const userSlice = createSlice({
 
 export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
   try {
-    const response = await axiosInstance.post(`/api/users/fetch-user-data`);
+    const response = await axiosInstance.get(`/api/users/fetch-user-data`);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
