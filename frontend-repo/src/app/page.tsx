@@ -17,10 +17,10 @@ const Page = () => {
   const [data, setData] = React.useState<User[]>([]);
   React.useEffect(() => {
     setData([
-      { id: "1" , email: "email1@gmail.com", password: "email1", fullName: "Email1", phoneNumber: "123456789" },
-      { id: "2" , email: "email2@gmail.com", password: "email2", fullName: "Email2", phoneNumber: "234567891" },
-      { id: "3" , email: "email3@gmail.com", password: "email3", fullName: "Email3", phoneNumber: "345678912" },
-      { id: "4" , email: "email4@gmail.com", password: "email4", fullName: "Email4", phoneNumber: "456789123" },
+      { id: "1", email: "email1@gmail.com", password: "email1", fullName: "Email1", phoneNumber: "123456789" },
+      { id: "2", email: "email2@gmail.com", password: "email2", fullName: "Email2", phoneNumber: "234567891" },
+      { id: "3", email: "email3@gmail.com", password: "email3", fullName: "Email3", phoneNumber: "345678912" },
+      { id: "4", email: "email4@gmail.com", password: "email4", fullName: "Email4", phoneNumber: "456789123" },
     ]);
   }, []);
   const handleChangeRowsPerPage = (newRowsPerPage: number) => {
