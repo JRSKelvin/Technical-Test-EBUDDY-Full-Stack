@@ -10,7 +10,7 @@ const Page = () => {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const handleSubmitSignIn = () => {
+  const handleSubmitSignIn = async () => {
   };
   return (
     <div>

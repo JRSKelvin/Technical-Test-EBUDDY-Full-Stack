@@ -37,7 +37,7 @@ const Page = () => {
       <div style={{ padding: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", marginBottom: 20 }}>
           <Typography variant="h6">Main Page</Typography>
-          <Button variant="contained" color="primary" onClick={() => {}}>Refresh Data</Button>
+          <Button variant="contained" color="primary" onClick={() => handleSubmitRefreshData()}>Refresh Data</Button>
         </div>
         <TableContainer component={Paper} style={{ marginTop: 20 }}>
           <Table>

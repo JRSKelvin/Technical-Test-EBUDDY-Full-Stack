@@ -12,7 +12,7 @@ const Page = () => {
   const [password, setPassword] = React.useState("");
   const [fullName, setFullName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
-  const handleSubmitSignUp = () => {
+  const handleSubmitSignUp = async () => {
   };
   return (
     <div>
