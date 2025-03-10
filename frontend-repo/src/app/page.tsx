@@ -22,7 +22,7 @@ const Page = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
   const [data, setData] = React.useState<User[]>([]);
-  if (!auth?.data?.token) {
+  if (!auth?.data?.data?.token) {
     router.push("/sign-in");
   }
   React.useEffect(() => {
