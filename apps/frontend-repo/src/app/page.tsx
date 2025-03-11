@@ -7,14 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, useAppSelector } from "@/store";
 import { signOut } from "@/store/slices/authSlice";
 import { createUser, deleteUser, getUser, updateUser } from "@/store/slices/userSlice";
-
-interface User {
-  id: string;
-  email: string;
-  password: string;
-  fullName: string;
-  phoneNumber: string;
-}
+import User from "@repo/shared/src/user"
 
 const Page = () => {
   const router = useRouter();

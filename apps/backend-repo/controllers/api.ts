@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 */
 import { auth, db } from "../config/firebaseConfig";
 import { AuthRequest } from "../middleware/authMiddleware";
-import User from "../models/user";
+import User from "@repo/shared/src/user"
 
 /*
 const secretKey = process.env.JWT_SECRET || "your_secret_key";
