@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { Request, Response, NextFunction } from "express";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, QueryOrderByConstraint, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, QueryOrderByConstraint, updateDoc } from "firebase/firestore";
 /*
 import jwt from "jsonwebtoken";
 */
@@ -50,13 +50,12 @@ class ApiController {
   }
   async authSignUp(req: Request, res: Response, next: NextFunction) {
     try {
+      /* Disable Manual Firebase FireStore Data Authentication And Using Firebase Authentication
       const refQuery = query(collection(db, "users"), where("email", "==", req.body.email));
       const existingData = await getDocs(refQuery);
       if (!existingData.empty) {
-        /* Keep Save Sign Up Data To Firebase FireStore And Also Using Firebase Authentication As Authenticator
         res.status(500).json({ success: false, data: undefined, message: "Email already in use." });
         return;
-        */
       }
       const newData: User = {
         email: String(req.body.email),
@@ -74,7 +73,6 @@ class ApiController {
         res.status(500).json({ success: false, data: undefined, message: "Failed to retrieve created user." });
         return;
       }
-      /* Disable Data And Token Generation
       const { password, ...restData }: User = { id: createdData.id, ...createdData.data() };
       const token = jwt.sign({ ...restData }, secretKey, { expiresIn: "1d" });
       */
