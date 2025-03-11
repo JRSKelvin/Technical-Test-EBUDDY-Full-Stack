@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:emulator": "turbo run dev:emulator",
+    "build": "turbo run build"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "npm@10.2.4",
+  "dependencies": {
+    "turbo": "^2.4.4"
+  }
+}
